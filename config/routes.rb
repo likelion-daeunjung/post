@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'posts/destroy/:id' => "posts#destroy"
   get '/posts/:post_id/likes' => "likes#create"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
   resources :posts do 
   	resources :comments, only: [:create, :delete]
   end

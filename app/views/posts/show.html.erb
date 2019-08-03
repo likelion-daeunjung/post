@@ -7,19 +7,21 @@
 <%= @post.users.count %><hr>
 
 <!--댓글 쓰는곳-->
-<form action = "<%= post_comments_path(@post) %>" method = "POST">
-    아이디: <input type="text" name="user_name">
-    댓글: <input type="text" name = "body">
+<form action = "<%= post_comments_path(@post) %>" method = "POST" data-remote="true">
+     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <!--아이디: <input type="text" name="user_name" id="comment_user">-->
+    댓글: <input type="text" name = "body" id="comment_body">
     <input type="submit">
 </form>
 
 <!--댓글 보여주는곳-->
-<% Comment.where(post_id: @post.id).each do |comment| %>
-    댓글 <%= comment.id %>
-    : <%= comment.user_name %>
-    <%= comment.body %>
-    <br>
-<% end %>
-
+<div id="comment_lists">
+    <% @post.comments.each do |comment| %>
+        <!--댓글 <%= comment.id %>-->
+        <!--: <%= comment.user_name %>-->
+        <%= comment.body %>
+        <br>
+    <% end %>
+</div>
 <hr>
 <a href = "/posts/index">글 목록</a>
